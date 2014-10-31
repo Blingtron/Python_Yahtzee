@@ -10,6 +10,7 @@ class Dice():
 		return dice
 	
 	def first_roll(self):
+		raw_input("Press ENTER to roll the dice...")
 		roll1 = self.dice(5)
 		return roll1
 	
@@ -26,15 +27,15 @@ class Dice():
 			keep_dice.append(roll1[i])
 			
 		
-		print "keep_dice: ", keep_dice
-		
+		print "You kept dice: ", keep_dice
+		raw_input("\nPress ENTER to roll the other dice...")
+		print "You rolled: ", roll2
 		keep_dice = keep_dice + roll2
-		print keep_dice
+		print "\nYour dice are: ", keep_dice
 		return keep_dice
 		
 	def third_roll(self, roll2):
-		print roll2
-		print "Which dice would you like to keep? [0, 4]"
+		print "\nWhich dice would you like to keep? [0, 4]"
 		keep_index = raw_input("> ")
 		keep_index = map(int, keep_index.split())
 		

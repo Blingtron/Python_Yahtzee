@@ -78,3 +78,4 @@ def yahtzee(dice):
 def chance(dice):
 	score = sum(dice)
 	return score
+	

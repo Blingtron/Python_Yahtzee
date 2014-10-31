@@ -9,7 +9,9 @@ class Score(object):
 	def __init__(self, name, score = 0):
 		self.name = name
 		self.score = score
-		
+	
+	round = 0
+	
 	card = {"Ones" : None,
 		"Twos" : None,
 		"Threes" : None,
@@ -46,84 +48,100 @@ class Score(object):
 	
 	
 	
-	def addscore(self, category, score):
-		if self.card[category] != None:
-			print "You already scored %s" % category
-		else:
-			self.card[category] = score
-			print "You scored %r for %s" % (score, category)
-		
+	def addscore(self, category, score, dice):
+		while True:
+			if self.card[category] == None:
+				self.card[category] = score
+				print "You scored %r for %s!\n" % (score, category)
+				break
+			print "You already scored %s, please pick an empty category.\n" % category
+			print dice
+			cat_choice(dice)
+			break
+			
+			
 
-def category(choice):
-	if choice == "ones":
-		player1.addscore("Ones", scoring.digs(dice, 1))
-		print player1.card
-		
-	elif choice == "twos":
-		player1.addscore("Twos", scoring.digs(dice, 2))
-		print player1.card
-		
-	elif choice == "threes":
-		player1.addscore("Threes", scoring.digs(dice, 3))
-		print player1.card
+def cat_choice(dice):
+	while True:
+		choice = raw_input("What category would you like to score for?\n> ")
+		if choice == "ones":
+			player1.addscore("Ones", scoring.digs(dice, 1), dice)
+			print player1.card
+			break
+			
+		elif choice == "twos":
+			player1.addscore("Twos", scoring.digs(dice, 2), dice)
+			print player1.card
+			break
+			
+		elif choice == "threes":
+			player1.addscore("Threes", scoring.digs(dice, 3), dice)
+			print player1.card
+			break
+			
+		elif choice == "fours":
+			player1.addscore("Fours", scoring.digs(dice, 4), dice)
+			print player1.card
+			break
+			
+		elif choice == "fives":
+			player1.addscore("Fives", scoring.digs(dice, 5), dice)
+			print player1.card
+			break
+			
+		elif choice == "sixes":
+			player1.addscore("Sixes", scoring.digs(dice, 6), dice)
+			print player1.card
+			break
+			
+		elif choice == "3k":
+			player1.addscore("Three of a kind", scoring.threek(dice), dice)
+			print player1.card
+			break
+			
+		elif choice == "4k":
+			player1.addscore("Four of a kind", scoring.fourk(dice), dice)
+			print player1.card
+			break
+			
+		elif choice == "fullhouse":
+			player1.addscore("Full house", scoring.fullhouse(dice), dice)
+			print player1.card
+			break
+			
+		elif choice == "smlstrt":
+			player1.addscore("Small straight", scoring.smlstrt(dice), dice)
+			print player1.card
+			break
+			
+		elif choice == "lrgstrt":
+			player1.addscore("Large straight", scoring.lrgstrt(dice), dice)
+			print player1.card
+			break
+			
+		elif choice == "yahtzee":
+			player1.addscore("Yahtzee", scoring.yahtzee(dice), dice)
+			print player1.card
+			break
+			
+		if choice == "chance":
+			player1.addscore("Chance", scoring.chance(dice), dice)
+			print player1.card
+			break
+			
+		print "Please type a valid score category"			
 
-	elif choice == "fours":
-		player1.addscore("Fours", scoring.digs(dice, 4))
-		print player1.card
+player1 = Score("name")
 
-	elif choice == "fives":
-		score = digs(dice, 5)
-		print "Score is %r" % score
-		
-	elif choice == "sixes":
-		score = digs(dice, 6)
-		print "Score is %r" % score
-		
-	elif choice == "3k":
-		score = threek(dice)
-		print "Score is %r" % score
-		
-	elif choice == "4k":
-		score = fourk(dice)
-		print "Score is %r" % score
-		
-	elif choice == "fullhouse":
-		score = fullhouse(dice)
-		print "Score is %r" % score
-		
-	elif choice == "smlstrt":
-		score = smlstrt(dice)
-		print "Score is %r" % score
-		
-	elif choice == "lrgstrt":
-		score = lrgstrt(dice)
-		print "Score is %r" % score
-		
-	elif choice == "yahtzee":
-		score = yahtzee(dice)
-		print "Score is %r" % score
+print "----------------------------------------------"
+print "\n\n\n          ~*- WELCOME TO PYTHON YAHTZEE -*~"
+print "\n                 created by Shane!\n\n"
+print "----------------------------------------------"
 
-	elif choice == "chance":
-		score = chance(dice)
-		print "Score is %r" % score
-		
-	else:
-		print "What?"
-	
-	
-## main
-print "Player 1 name?"
-player1 = Score(raw_input("> "))
-
-
-raw_input("Press ENTER to roll...")
-dice = Dice()
-dice.first_roll()
-	
-
-
-
-
-##User input testing
-print "\nTest category?"
-category(raw_input("> "))
+while player1.round < 14:
+	dice = Dice()
+	roll1 = dice.first_roll()
+	roll2 = dice.second_roll(roll1)
+	roll3 = dice.third_roll(roll2)
+	cat_choice(roll3)
+	player1.round += 1
