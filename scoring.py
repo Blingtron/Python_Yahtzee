@@ -14,7 +14,7 @@ def threek(dice):
 			return score
 		else:
 			return score
-	
+
 def fourk(dice):
 	score = 0
 	for i in dice:
@@ -23,7 +23,7 @@ def fourk(dice):
 			return score
 		else:
 			return score
-			
+
 def fullhouse(dice):
 	score = 0
 	dice = sorted(set(dice))
@@ -32,7 +32,7 @@ def fullhouse(dice):
 		return score
 	else:
 		return score
-		
+
 def smlstrt(dice):
 	score = 0
 	dice = str(sorted(dice))
@@ -48,7 +48,7 @@ def smlstrt(dice):
 		return score
 	else:
 		return score
-		
+
 def lrgstrt(dice):
 	score = 0
 	dice = str(sorted(set(dice)))
@@ -60,22 +60,19 @@ def lrgstrt(dice):
 		return score
 	else:
 		return score
-	
+
 def yahtzee(dice):
 	score = 0
-	count = 0
-	for i in dice:
+	count = 1
+	for i in range(0, 4):
 		if dice[i] == dice[i + 1]:
 			count += 1
-		else:
-			pass
 	if count == 5:
 		score = 50
 		return score
 	else:
 		return score
-		
+
 def chance(dice):
 	score = sum(dice)
 	return score
-	
