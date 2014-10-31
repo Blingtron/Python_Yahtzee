@@ -41,7 +41,7 @@ class Score(object):
 	pretty_card.add_row(["4 of a kind", card["Four of a kind"]])
 	pretty_card.add_row(["Full House", card["Full house"]])
 	pretty_card.add_row(["Small straight", card["Small straight"]])
-	pretty_card.add_row(["Large straight", card["Large straight"]])
+	pretty_card.add_row(["Large stra-ight", card["Large straight"]])
 	pretty_card.add_row(["YAHTZEE", card["Yahtzee"]])
 	pretty_card.add_row(["YAHTZEE BONUS", card["Yahtzee bonus"]])
 	pretty_card.add_row(["TOTAL SCORE", "--"])
@@ -50,7 +50,14 @@ class Score(object):
 
 	def addscore(self, category, score, dice):
 		while True:
-			if self.card[category] == None:
+			if category == "Yahtzee bonus":
+				if self.card[category] == None:
+					self.card[category] = 100
+					print "You got another Yahtzee! You scored 100 bonus points!"
+					break
+				self.card[category] += score
+				break
+			elif self.card[category] == None:
 				self.card[category] = score
 				print "You scored %r for %s!\n" % (score, category)
 				break
@@ -130,7 +137,10 @@ def cat_choice(dice):
 			break
 
 		elif choice == "yahtzee":
-			player1.addscore("Yahtzee", scoring.yahtzee(dice), dice)
+			if player1.card["Yahtzee"] > 0:
+				player1.addscore("Yahtzee bonus", 100, dice)
+			else:
+				player1.addscore("Yahtzee", scoring.yahtzee(dice), dice)
 			print player1.card
 			break
 
