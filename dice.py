@@ -30,7 +30,7 @@ class Dice():
 
 
 		print "You kept dice: ", keep_dice
-		raw_input("\nPress ENTER to roll the other dice...")
+		raw_input("\nPress ENTER to roll the other dice...\n")
 		print "You rolled: ", roll2
 		keep_dice = keep_dice + roll2
 		print "\nYour dice are: ", keep_dice
@@ -46,7 +46,8 @@ class Dice():
 
 		for i in keep_index:
 			keep_dice.append(roll2[i])
-
+		print "You kept dice: ", keep_dice
+		raw_input("\nPress ENTER to roll the other dice...\n")
 		keep_dice = keep_dice + roll3
-		print keep_dice
+		print "\nYour dice are: ", keep_dice
 		return keep_dice
