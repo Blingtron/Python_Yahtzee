@@ -9,27 +9,25 @@ class Score(object):
 	def __init__(self, name, score = 0):
 		self.name = name
 		self.score = score
-
-	round = 0
-
-	card = {"Ones" : None,
-		"Twos" : None,
-		"Threes" : None,
-		"Fours" : None,
-		"Fives" : None,
-		"Sixes" : None,
-		"Bonus" : None,
-		"Three of a kind" : None,
-		"Four of a kind" : None,
-		"Full house" : None,
-		"Small straight" : None,
-		"Large straight" : None,
-		"Yahtzee" : None,
-		"Chance" : None,
-		"Yahtzee bonus" : None}
+		self.card = {"Ones" : None,
+			"Twos" : None,
+			"Threes" : None,
+			"Fours" : None,
+			"Fives" : None,
+			"Sixes" : None,
+			"Bonus" : None,
+			"Three of a kind" : None,
+			"Four of a kind" : None,
+			"Full house" : None,
+			"Small straight" : None,
+			"Large straight" : None,
+			"Yahtzee" : None,
+			"Chance" : None,
+			"Yahtzee bonus" : None}
+		self.round = 0
 
 	def card_gen(self):
-		pretty_card = PrettyTable(["Category", "Score"])
+		pretty_card = PrettyTable(["Category", self.name])
 		pretty_card.add_row(["Ones", self.card["Ones"]])
 		pretty_card.add_row(["Twos", self.card["Twos"]])
 		pretty_card.add_row(["Threes", self.card["Threes"]])
@@ -137,7 +135,7 @@ class Score(object):
 				self.card_gen()
 				break
 
-			print "Please type a valid score category"
+			print "Please type a valid score category...\n"
 
 	def end_game(self):
 		if self.card["Ones"] + self.card["Twos"] + self.card["Threes"] + self.card["Fours"] + self.card["Fives"] + self.card["Sixes"] >= 63:
@@ -148,8 +146,16 @@ class Score(object):
 		if self.card["Yahtzee bonus"] == None:
 			self.card["Yahtzee bonus"] = 0
 		total = sum(self.card.itervalues())
-		print "Your total score was: ", total
+		print "%r, Your total score was: %r" % self.name, total
 
+def round(player):
+	print "\nYour turn, %s." % player.name
+	dice = Dice()
+	roll1 = dice.first_roll()
+	roll2 = dice.second_roll(roll1)
+	roll3 = dice.third_roll(roll2)
+	player.cat_choice(roll3)
+	player.round += 1
 
 print "----------------------------------------------"
 print "\n\n\n          ~*- WELCOME TO TEXT YAHTZEE -*~"
@@ -165,11 +171,10 @@ else:
 	player1 = Score(raw_input("Player name?\n> "))
 
 while player1.round < 13:
-	dice = Dice()
-	roll1 = dice.first_roll()
-	roll2 = dice.second_roll(roll1)
-	roll3 = dice.third_roll(roll2)
-	player1.cat_choice(roll3)
-	player1.round += 1
-
-player1.end_game()
+	round(player1)
+	if player1.round == 13:
+		player1.end_game()
+	if player2:
+		round(player2)
+	if player2.round == 13:
+		player2.end_game()
