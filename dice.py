@@ -17,10 +17,15 @@ class Dice():
 	def second_roll(self, roll1):
 		print roll1
 		print "Which dice would you like to keep? [0,4]"
-		keep_index = raw_input("> ")
 		# creates a list by mapping input "x x x x x" as integers
-		# to [x, x, x, x, x]
-		keep_index = map(int, keep_index.split())
+		# to [x, x, x, x, x], and checks for input errors.
+		while True:
+			try:
+				keep_index = raw_input("> ")
+				keep_index = map(int, keep_index.split())
+				break
+			except ValueError:
+				print "Please type your keepers in index form \"x x x x x\""
 
 		keep_dice = []
 		roll2 = self.dice(5 - len(keep_index))
@@ -38,8 +43,13 @@ class Dice():
 
 	def third_roll(self, roll2):
 		print "\nWhich dice would you like to keep? [0, 4]"
-		keep_index = raw_input("> ")
-		keep_index = map(int, keep_index.split())
+		while True:
+			try:
+				keep_index = raw_input("> ")
+				keep_index = map(int, keep_index.split())
+				break
+			except ValueError:
+				print "Please type your keepers in index form \"x x x x x\""
 
 		keep_dice = []
 		roll3 = self.dice(5 - len(keep_index))
