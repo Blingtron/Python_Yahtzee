@@ -42,6 +42,7 @@ class Score(object):
 		pretty_card.add_row(["Small straight", self.card["Small straight"]])
 		pretty_card.add_row(["Large straight", self.card["Large straight"]])
 		pretty_card.add_row(["YAHTZEE", self.card["Yahtzee"]])
+		pretty_card.add_row(["Chance", self.card["Chance"]])
 		pretty_card.add_row(["YAHTZEE BONUS", self.card["Yahtzee bonus"]])
 		pretty_card.add_row(["TOTAL SCORE", "--"])
 		print pretty_card
@@ -146,7 +147,7 @@ class Score(object):
 		if self.card["Yahtzee bonus"] == None:
 			self.card["Yahtzee bonus"] = 0
 		total = sum(self.card.itervalues())
-		print "%r, Your total score was: %r" % self.name, total
+		print "%s, your total score was: %r" % (self.name, total)
 
 def round(player):
 	print "\nYour turn, %s." % player.name
@@ -156,6 +157,20 @@ def round(player):
 	roll3 = dice.third_roll(roll2)
 	player.cat_choice(roll3)
 	player.round += 1
+
+def winner():
+	p1 = sum(player1.card.itervalues())
+	p2 = sum(player2.card.itervalues())
+	if p1 > p2:
+		print "\n--------------------------"
+		print "\n       ~*- %s wins!!! -*~" % player1.name
+		print "\n--------------------------"
+	elif p2 > p1:
+		print "\n--------------------------"
+		print "\n       ~*- %s wins!!! -*~" % player2.name
+		print "\n--------------------------"
+	else:
+		print "\nThe game was a tie! Wow!"
 
 print "----------------------------------------------"
 print "\n\n\n          ~*- WELCOME TO TEXT YAHTZEE -*~"
@@ -174,7 +189,16 @@ while player1.round < 13:
 	round(player1)
 	if player1.round == 13:
 		player1.end_game()
-	if player2:
-		round(player2)
-	if player2.round == 13:
-		player2.end_game()
+	try:
+		if player2:
+			round(player2)
+		if player2.round == 13:
+			player2.end_game()
+	except NameError:
+		pass
+while True:
+	try:
+		winner()
+		break
+	except NameError:
+		pass
