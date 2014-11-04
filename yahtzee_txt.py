@@ -6,9 +6,8 @@ from prettytable import PrettyTable
 ## Score card class to be used for multiple players
 class Score(object):
 
-	def __init__(self, name, score = 0):
+	def __init__(self, name):
 		self.name = name
-		self.score = score
 		self.card = {"Ones" : None,
 			"Twos" : None,
 			"Threes" : None,
@@ -26,6 +25,7 @@ class Score(object):
 			"Yahtzee bonus" : None}
 		self.round = 0
 
+		# prettytable generated scorecard
 	def card_gen(self):
 		pretty_card = PrettyTable(["Category", self.name])
 		pretty_card.add_row(["Ones", self.card["Ones"]])
@@ -47,6 +47,8 @@ class Score(object):
 		pretty_card.add_row(["TOTAL SCORE", "--"])
 		print pretty_card
 
+	# takes category choice, score, and the dice roll from cat_choice, adds the
+	# score to players card
 	def addscore(self, category, score, dice):
 		while True:
 			if category == "Yahtzee bonus":
@@ -65,6 +67,8 @@ class Score(object):
 			self.cat_choice(dice)
 			break
 
+	# user input to decide which category to score for. prints score card after
+	# addscore has been called sucessfully.
 	def cat_choice(self, dice):
 		while True:
 			choice = raw_input("What category would you like to score for?\n> ")
@@ -124,6 +128,7 @@ class Score(object):
 				break
 
 			elif choice == "yahtzee":
+				# Yahtzee bonus is given if player has already scored yahtzee
 				if self.card["Yahtzee"] > 0:
 					self.addscore("Yahtzee bonus", 100, dice)
 				else:
