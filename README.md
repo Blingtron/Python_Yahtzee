@@ -1,9 +1,9 @@
 Python_Yahtzee
 ==============
 
-A text-based (for now) simulator of Yahtzee in Python 2.7, coming together as I learn how to program.
+A text-based Yahtzee written in Python 2.7, coming together as I learn how to program.
 
-To use, run yahtzee_txt.py in python 2.7, choose one or two player, and follow the prompts. To keep dice, please enter in index format "x x x x x"
+To use, run yahtzee_txt.py in python 2.7, choose one or two player, and follow the prompts. To keep dice, enter in index format "x x x x x"
 
 To choose a scoring category, please choose from the following:
 
@@ -21,4 +21,4 @@ To choose a scoring category, please choose from the following:
 + yahtzee
 + chance
 
-I was going to make category choosing more flexible, but as I am planning on implementing a GUI, I don't think it's worth my time, since, you know, text based yahtzee is kind of lame.
+I was going to make category choosing more flexible, but I would rather see it implemented in a GUI, which I may never get around to.
