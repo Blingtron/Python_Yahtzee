@@ -20,5 +20,3 @@ To choose a scoring category, please choose from the following:
 + lrgstrt
 + yahtzee
 + chance
-
-I was going to make category choosing more flexible, but I would rather see it implemented in a GUI, which I may never get around to.
